@@ -1,0 +1,21 @@
+version: "3.7"
+services:
+  mssqldb:
+    build:
+      context: .
+      dockerfile: Dockerfile.mssql
+    container_name: mssqldb
+    ports:
+      - ${MSSQL_PORT}:${MSSQL_PORT}
+    volumes:
+      - ./mssql_data:${MSSQL_DATA_DIR}
+      - ./mssql_log:${MSSQL_LOG_DIR}
+      - ./mssql_backup:${MSSQL_BACKUP_DIR}
+    env_file:
+      - .env
+    networks:
+      - mssql_network
+networks:
+  mssql_network:
+    name: mssql_network
+    driver: bridge

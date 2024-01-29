@@ -1,0 +1,10 @@
+FROM mcr.microsoft.com/mssql/server:2019-latest
+EXPOSE $MSSQL_PORT
+WORKDIR /app
+COPY ./entrypoint.sh ./
+COPY ./initialize.sh ./
+COPY ./init.sql ./
+USER root
+RUN chmod +x ./entrypoint.sh
+RUN chmod +x ./initialize.sh
+ENTRYPOINT ["./entrypoint.sh"]
